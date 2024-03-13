@@ -24,7 +24,8 @@ shinyUI(
     fluidRow(
       column(12, 
              wellPanel(
-               selectInput(adult$native_country, "Country:", c("United-States", "Canada", "Mexico", "Germany", "Philippines")))  # add select input 
+               selectInput(inputId = "country", "Country:", 
+                           c("United-States", "Canada", "Mexico", "Germany", "Philippines")))  # add select input 
              )
     ),
     
@@ -53,6 +54,7 @@ shinyUI(
     )
   )
 )
+
 
 **#SERVER **
 
@@ -97,7 +99,7 @@ shinyServer(function(input, output) {
   # TASK 6: Create logic to plot faceted bar chart or stacked bar chart
   output$p2 <- renderPlot({
     # Bar chart
-    p <- ggplot(df_country(), aes_string(x = ...)) +
+    p <- ggplot(df_country(), aes_string(x = input$categorical_variable)) +
       geom_bar()+
       labs(x= "Categorical",
            y= "Number of people",
@@ -114,3 +116,4 @@ shinyServer(function(input, output) {
   })
   
 })
+
